@@ -20,6 +20,8 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 header {
@@ -40,6 +42,7 @@ header {
     cursor: pointer;
     border-radius: 5px;
     position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 #settings-panel {
@@ -70,6 +73,7 @@ main {
     flex-direction: column;
     width: 100%;
     margin-bottom: 20px;
+    position: relative;
 }
 
 label {
@@ -83,6 +87,8 @@ textarea, select, input[type="text"] {
     color: var(--text-color);
     padding: 5px;
     margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 #convert-button, #copy-button, #toggle-custom, #save-settings {
@@ -94,6 +100,7 @@ textarea, select, input[type="text"] {
     border-radius: 5px;
     margin-top: 10px;
     box-shadow: 0 0 5px var(--shadow-color);
+    position: relative;
 }
 
 #extra-inputs {
@@ -109,54 +116,37 @@ footer {
     background-color: var(--header-background);
     width: 100%;
     text-align: center;
-    color: var(--text-color);
 }
 
-.table-container {
-    width: 100%;
-    margin: 20px 0;
-    position: relative;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    background-color: var(--table-background);
-    border: 1px solid var(--table-border);
-}
-
-.table-container::before, .table-container::after {
-    content: '';
+.led-effect {
     position: absolute;
-    top: -2px;
-    right: -2px;
-    bottom: -2px;
-    left: -2px;
-    background: linear-gradient(45deg, red, yellow, green, cyan, blue, magenta, red);
-    background-size: 400% 400%;
-    animation: rgb-border 10s linear infinite;
-    border-radius: 12px;
-    z-index: -1;
-}
-
-@keyframes rgb-border {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-button, textarea, select, input[type="text"] {
+    border: 2px solid transparent;
     border-radius: 5px;
+    box-shadow: 0 0 10px 5px rgba(0, 255, 255, 0.5);
+    animation: led-effect 2s infinite;
 }
 
-#convert-button:hover, #copy-button:hover, #toggle-custom:hover, #save-settings:hover {
-    background-color: #cc0000;
+@keyframes led-effect {
+    0% {
+        box-shadow: 0 0 10px 5px rgba(0, 255, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px 10px rgba(0, 255, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 10px 5px rgba(0, 255, 255, 0.5);
+    }
 }
 
-#settings-panel input[type="color"] {
-    margin-bottom: 10px;
-    padding: 0;
-    height: 40px;
-}
-
-#extra-inputs label, #extra-inputs input {
-    display: block;
-    margin-bottom: 5px;
+#settings-panel.led-effect,
+#convert-button.led-effect,
+#copy-button.led-effect,
+#toggle-custom.led-effect,
+#farm-list.led-effect,
+#extra-inputs-dirt-plant.led-effect,
+#result.led-effect {
+    border: 2px solid transparent;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 5px rgba(0, 255, 255, 0.5);
+    animation: led-effect 2s infinite;
 }
