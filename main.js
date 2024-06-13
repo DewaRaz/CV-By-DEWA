@@ -83,6 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return prefix + line + suffix;
         }).join(separator);
 
+        if (format === 'horizontal') {
+            result = '{' + result + '}';
+        } else if (format === 'vertical') {
+            result = result.split(', ').join(',\n');
+        }
+
         resultArea.value = result;
     }
 
