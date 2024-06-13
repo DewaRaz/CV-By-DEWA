@@ -1,104 +1,112 @@
+:root {
+    --button-color: #ff0000; /* Red */
+    --text-color: #ffffff;   /* White */
+    --background-color: #282c34; /* Dark Gray */
+    --header-background: #21252b; /* Darker Gray */
+    --table-background: #333; /* Dark Gray */
+    --table-border: #444; /* Gray */
+    --textarea-background: #444; /* Dark Gray */
+    --textarea-border: #555; /* Gray */
+    --shadow-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f0f0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
 }
 
-.container {
-    max-width: 800px;
-    margin: 80px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #e1e4e8;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.header {
+header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--header-background);
 }
 
-.settings {
+#settings-button {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
     position: relative;
 }
 
-.settings button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    color: #0366d6;
-}
-
-.settings button:hover {
-    text-decoration: underline;
-}
-
-#settingsPanel {
+#settings-panel {
+    background-color: var(--table-background);
+    padding: 10px;
+    border-radius: 5px;
     position: absolute;
-    top: 40px;
+    top: 50px;
     right: 10px;
-    padding: 10px;
-    background-color: #ffffff;
-    border: 1px solid #e1e4e8;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    display: none;
-}
-
-#settingsPanel.active {
-    display: block;
-}
-
-h1 {
-    color: #0366d6;
-    font-size: 24px;
-}
-
-.converter {
-    padding: 20px;
-    background-color: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    border-radius: 4px;
-}
-
-.converter-controls {
-    max-width: 600px;
-    margin: 0 auto;
-    position: relative;
-}
-
-textarea, select, input[type="text"], button {
-    width: calc(100% - 22px);
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    border: 1px solid #d1d5da;
-    border-radius: 6px;
-    background-color: #f6f8fa;
-    color: #24292e;
-}
-
-button {
-    background-color: #0366d6;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #005cc5;
-}
-
-textarea#convertedResult {
-    height: 150px;
+    z-index: 1;
+    box-shadow: 0 0 10px var(--shadow-color);
 }
 
 .hidden {
     display: none;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+textarea, select, input[type="text"] {
+    width: 100%;
+    background-color: var(--textarea-background);
+    border: 1px solid var(--textarea-border);
+    color: var(--text-color);
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#convert-button, #copy-button, #toggle-custom, #save-settings {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    box-shadow: 0 0 5px var(--shadow-color);
+}
+
+#extra-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+}
+
+footer {
+    margin-top: auto;
+    padding: 10px;
+    background-color: var(--header-background);
+    width: 100%;
+    text-align: center;
+    color: var(--text-color);
 }
