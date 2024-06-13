@@ -3,62 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Format Converter</title>
+    <title>Farm List Converter</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1 id="ownerTitle">DEWA VPS [A/W]</h1>
-            <div class="settings">
-                <button onclick="toggleSettings()">⚙️ Settings</button>
-                <div id="settingsPanel" class="hidden">
-                    <label for="ownerName">Owner Name:</label>
-                    <input type="text" id="ownerName" value="DEWA VPS [A/W]">
-                    <label for="buttonColor">Button Color:</label>
-                    <input type="color" id="buttonColor" value="#4ec9b0">
-                    <label for="textColor">Text Color:</label>
-                    <input type="color" id="textColor" value="#d4d4d4">
-                    <label for="bgImageUrl">Background Image URL:</label>
-                    <input type="text" id="bgImageUrl" placeholder="Enter Background Image URL">
-                    <button onclick="saveSettings()">Save Settings</button>
-                </div>
-            </div>
+    <header>
+        <h1 id="table-title">Nama Pemilik Web</h1>
+        <button id="settings-button">⚙️</button>
+    </header>
+    <main>
+        <div id="settings-panel" class="hidden">
+            <label for="title-input">Nama Table:</label>
+            <input type="text" id="title-input" placeholder="Nama Pemilik Web">
+            <label for="button-color">Warna Tombol:</label>
+            <input type="color" id="button-color" value="#ff0000">
+            <label for="text-color">Warna Tulisan:</label>
+            <input type="color" id="text-color" value="#ffffff">
+            <button id="save-settings">Save</button>
         </div>
-        
-        <div class="converter">
-            <div class="converter-controls">
-                <textarea id="farmList" placeholder="Masukkan list farm"></textarea><br><br>
-                <select id="formatSelect" onchange="toggleFormat()">
-                    <option value="ROTASI">ROTASI : {"Nama1","Nama2"}</option>
-                    <option value="DF">DF : "Nama|"</option>
-                    <option value="PLANT">PLANT : Nama|ID DOOR|4585</option>
-                </select><br><br>
-                <div id="formatEditor" class="hidden">
-                    <label for="formatPattern">Edit Format:</label>
-                    <input type="text" id="formatPattern" placeholder="Masukkan pola format">
-                </div>
-                <label for="directionSelect">Direction:</label>
-                <select id="directionSelect">
-                    <option value="horizontal">Horizontal</option>
-                    <option value="vertical">Vertical</option>
-                </select><br><br>
-                <label for="doorId">ID DOOR :</label>
-                <input type="text" id="doorId" placeholder="Masukkan ID Door" value="ID DOOR"><br><br>
-                <label for="itemId">ITEM ID :</label>
-                <input type="text" id="itemId" placeholder="Masukkan Item ID" value="4585"><br><br>
-                <label for="separator">Separator:</label>
-                <input type="text" id="separator" placeholder="Masukkan separator" value="|"><br><br>
-                <label for="prefixSuffix">Prefix & Suffix:</label>
-                <input type="text" id="prefix" placeholder="Masukkan Prefix" value='{"'>
-                <input type="text" id="suffix" placeholder="Masukkan Suffix" value='"},'><br><br>
-                <button id="convertButton" onclick="convert()">Convert</button><br><br>
-                <textarea id="convertedResult" placeholder="Hasil konversi" readonly></textarea><br><br>
-                <button id="copyButton" onclick="copyResult()">Salin Hasil</button>
-            </div>
+        <button id="toggle-custom">Aktifkan/Off Custom</button>
+        <div id="custom-settings-row" class="hidden">
+            <label for="prefix-input">Prefix:</label>
+            <input type="text" id="prefix-input">
+            <label for="suffix-input">Suffix:</label>
+            <input type="text" id="suffix-input">
+            <label for="separator-input">Separator:</label>
+            <input type="text" id="separator-input">
         </div>
-    </div>
-
+        <div class="form-section">
+            <label for="format-selector">Pilih Format:</label>
+            <select id="format-selector">
+                <option value="horizontal">ROTASI HORIZONTAL</option>
+                <option value="vertical">ROTASI VERTIKAL</option>
+                <option value="dirt1">Dirt Farm mode 1</option>
+                <option value="dirt2">Dirt Farm mode 2</option>
+                <option value="plant1">Plant mode 1</option>
+                <option value="plant2">Plant mode 2</option>
+            </select>
+        </div>
+        <div class="form-section">
+            <label for="farm-list">Masukkan List Farm:</label>
+            <textarea id="farm-list" rows="10" cols="30"></textarea>
+        </div>
+        <button id="convert-button">Convert</button>
+        <div id="extra-inputs" class="hidden">
+            <label for="id-door">ID Door:</label>
+            <input type="text" id="id-door">
+            <label for="item-id" id="item-id-label" class="hidden">Item ID:</label>
+            <input type="text" id="item-id" class="hidden">
+        </div>
+        <div class="form-section">
+            <label for="result">Hasil:</label>
+            <textarea id="result" rows="10" cols="30" readonly></textarea>
+        </div>
+        <button id="copy-button">Salin</button>
+    </main>
+    <footer>
+        <p>DEWA VPS DEVELOPER</p>
+    </footer>
     <script src="main.js"></script>
 </body>
 </html>
