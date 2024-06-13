@@ -1,0 +1,77 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    margin: 0;
+    padding: 0;
+}
+
+.vscode-theme {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    background-color: #2d2d2d;
+}
+
+h1 {
+    text-align: center;
+    color: #4ec9b0;
+}
+
+textarea, select, input[type="text"], button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background-color: #3a3a3a;
+    color: #d4d4d4;
+}
+
+button {
+    background-color: #4ec9b0;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45b09e;
+}
+
+textarea#convertedResult {
+    height: 200px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.settings {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#settingsPanel {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    padding: 10px;
+    background-color: #2d2d2d;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+}
