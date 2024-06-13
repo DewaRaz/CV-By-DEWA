@@ -1,71 +1,41 @@
 body {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: #1e1e1e;
-    color: #d4d4d4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
-    background-size: cover;
-    background-position: center;
-}
-
-.vscode-theme {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
 }
 
 .container {
-    max-width: 600px;
-    margin: 20px auto;
+    max-width: 800px;
+    margin: 80px auto;
     padding: 20px;
-    border: 1px solid #cccccc;
-    border-radius: 8px;
-    background-color: #2d2d2d;
-}
-
-h1 {
-    text-align: center;
-    color: #4ec9b0;
-}
-
-textarea, select, input[type="text"], button {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    border: 1px solid #cccccc;
+    background-color: #ffffff;
+    border: 1px solid #e1e4e8;
     border-radius: 4px;
-    background-color: #3a3a3a;
-    color: #d4d4d4;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-button {
-    background-color: #4ec9b0;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45b09e;
-}
-
-textarea#convertedResult {
-    height: 200px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.hidden {
-    display: none;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .settings {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: relative;
+}
+
+.settings button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #0366d6;
+}
+
+.settings button:hover {
+    text-decoration: underline;
 }
 
 #settingsPanel {
@@ -73,7 +43,62 @@ label {
     top: 40px;
     right: 10px;
     padding: 10px;
-    background-color: #2d2d2d;
-    border: 1px solid #cccccc;
+    background-color: #ffffff;
+    border: 1px solid #e1e4e8;
     border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+}
+
+#settingsPanel.active {
+    display: block;
+}
+
+h1 {
+    color: #0366d6;
+    font-size: 24px;
+}
+
+.converter {
+    padding: 20px;
+    background-color: #f6f8fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 4px;
+}
+
+.converter-controls {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+textarea, select, input[type="text"], button {
+    width: calc(100% - 22px);
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #d1d5da;
+    border-radius: 6px;
+    background-color: #f6f8fa;
+    color: #24292e;
+}
+
+button {
+    background-color: #0366d6;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005cc5;
+}
+
+textarea#convertedResult {
+    height: 150px;
+}
+
+.hidden {
+    display: none;
 }
