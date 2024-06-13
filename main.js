@@ -1,3 +1,6 @@
+// main.js
+
+// Function to convert farm list based on selected format
 function convert() {
     const farmList = document.getElementById('farmList').value.trim().split('\n').filter(Boolean);
     const format = document.getElementById('formatSelect').value;
@@ -14,9 +17,17 @@ function convert() {
     switch (format) {
         case 'ROTASI':
             if (direction === 'horizontal') {
-                convertedList = `${prefix}${farmList.join(`${suffix}${prefix}`)}${suffix}`;
+                if (formatPattern) {
+                    convertedList = `${prefix}${farmList.join(`${suffix}${prefix}`)}${suffix}`;
+                } else {
+                    convertedList = `${prefix}${farmList.join(`${suffix}${prefix}`)}${suffix}`;
+                }
             } else if (direction === 'vertical') {
-                convertedList = farmList.map(farm => `${prefix}${farm}${suffix}`).join('\n');
+                if (formatPattern) {
+                    convertedList = farmList.map(farm => `${prefix}${farm}${suffix}`).join('\n');
+                } else {
+                    convertedList = farmList.map(farm => `${prefix}${farm}${suffix}`).join('\n');
+                }
             }
             break;
         case 'DF':
@@ -33,18 +44,34 @@ function convert() {
     document.getElementById('convertedResult').value = convertedList;
 }
 
+// Function to copy converted result to clipboard
 function copyResult() {
     const copyText = document.getElementById('convertedResult');
     copyText.select();
-    copyText.setSelectionRange(0, 99999); // For mobile devices
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
     document.execCommand('copy');
     alert('Hasil berhasil disalin!');
 }
 
+// Function to toggle format options visibility and default behavior
 function toggleFormat() {
     const format = document.getElementById('formatSelect').value;
     const directionSelect = document.getElementById('directionSelect');
     const formatEditor = document.getElementById('formatEditor');
+    const prefixInput = document.getElementById('prefix');
+    const suffixInput = document.getElementById('suffix');
+    const separatorInput = document.getElementById('separator');
+
+    // Reset prefix and suffix input values to default if empty
+    if (format === 'ROTASI' && !prefixInput.value.trim() && !suffixInput.value.trim()) {
+        prefixInput.value = '{"';
+        suffixInput.value = '"},';
+    }
+
+    // Reset separator input value to default if empty
+    if (format !== 'ROTASI' && !separatorInput.value.trim()) {
+        separatorInput.value = '|';
+    }
 
     if (format === 'ROTASI') {
         directionSelect.disabled = false;
@@ -62,16 +89,18 @@ function toggleFormat() {
     }
 }
 
+// Function to toggle settings panel visibility
 function toggleSettings() {
     const settingsPanel = document.getElementById('settingsPanel');
     settingsPanel.classList.toggle('hidden');
 }
 
+// Function to save settings (including background image URL)
 function saveSettings() {
     const ownerName = document.getElementById('ownerName').value;
     const buttonColor = document.getElementById('buttonColor').value;
     const textColor = document.getElementById('textColor').value;
-    const bgImageUrl = document.getElementById('bgImageUrl').value;
+    const bgImageUrl = document.getElementById('bgImageUrl').value.trim();
 
     document.getElementById('ownerTitle').innerText = ownerName;
     document.getElementById('convertButton').style.backgroundColor = buttonColor;
@@ -79,10 +108,29 @@ function saveSettings() {
     document.getElementById('convertButton').style.color = textColor;
     document.getElementById('copyButton').style.color = textColor;
 
-    // Set background image
-    document.body.style.backgroundImage = bgImageUrl ? `url(${bgImageUrl})` : 'none';
+    // Set background image if URL is provided
+    if (bgImageUrl) {
+        document.body.style.backgroundImage = `url('${bgImageUrl}')`;
+    } else {
+        document.body.style.backgroundImage = 'none';
+    }
 }
 
+// Function to apply custom format pattern
 function applyCustomFormat(farmList, formatPattern) {
     return farmList.map(farm => formatPattern.replace(/Nama/g, farm)).join('\n');
 }
+
+// Function to start RGB animation around the converter
+function startRGBAnimation() {
+    const converter = document.querySelector('.converter');
+    let hue = 0;
+
+    setInterval(() => {
+        hue = (hue + 1) % 360;
+        converter.style.boxShadow = `0 0 10px hsl(${hue}, 70%, 50%)`;
+    }, 50); // Adjust speed here (milliseconds)
+}
+
+// Call the function to start the RGB animation
+startRGBAnimation();
