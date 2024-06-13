@@ -1,136 +1,94 @@
-// main.js
+document.addEventListener('DOMContentLoaded', () => {
+    const settingsButton = document.getElementById('settings-button');
+    const settingsPanel = document.getElementById('settings-panel');
+    const titleInput = document.getElementById('title-input');
+    const tableTitle = document.getElementById('table-title');
+    const buttonColorInput = document.getElementById('button-color');
+    const textColorInput = document.getElementById('text-color');
+    const saveSettingsButton = document.getElementById('save-settings');
+    const formatSelector = document.getElementById('format-selector');
+    const resultArea = document.getElementById('result');
+    const copyButton = document.getElementById('copy-button');
+    const toggleCustomButton = document.getElementById('toggle-custom');
+    const customSettingsRow = document.getElementById('custom-settings-row');
+    const farmList = document.getElementById('farm-list');
+    const idDoorInput = document.getElementById('id-door');
+    const itemIdInput = document.getElementById('item-id');
+    const itemIdLabel = document.getElementById('item-id-label');
+    const extraInputs = document.getElementById('extra-inputs');
+    const convertButton = document.getElementById('convert-button');
 
-// Function to convert farm list based on selected format
-function convert() {
-    const farmList = document.getElementById('farmList').value.trim().split('\n').filter(Boolean);
-    const format = document.getElementById('formatSelect').value;
-    const direction = document.getElementById('directionSelect').value;
-    const doorId = document.getElementById('doorId').value.trim();
-    const itemId = document.getElementById('itemId').value.trim();
-    const separator = document.getElementById('separator').value.trim();
-    const formatPattern = document.getElementById('formatPattern').value.trim();
-    const prefix = document.getElementById('prefix').value.trim();
-    const suffix = document.getElementById('suffix').value.trim();
+    settingsButton.addEventListener('click', () => {
+        settingsPanel.classList.toggle('hidden');
+    });
 
-    let convertedList = '';
+    saveSettingsButton.addEventListener('click', () => {
+        tableTitle.textContent = titleInput.value;
+        document.documentElement.style.setProperty('--button-color', buttonColorInput.value);
+        document.documentElement.style.setProperty('--text-color', textColorInput.value);
+        settingsPanel.classList.add('hidden');
+    });
 
-    switch (format) {
-        case 'ROTASI':
-            if (direction === 'horizontal') {
-                if (formatPattern) {
-                    convertedList = `${prefix}${farmList.join(`${suffix}${prefix}`)}${suffix}`;
-                } else {
-                    convertedList = `${prefix}${farmList.join(`${suffix}${prefix}`)}${suffix}`;
-                }
-            } else if (direction === 'vertical') {
-                if (formatPattern) {
-                    convertedList = farmList.map(farm => `${prefix}${farm}${suffix}`).join('\n');
-                } else {
-                    convertedList = farmList.map(farm => `${prefix}${farm}${suffix}`).join('\n');
-                }
-            }
-            break;
-        case 'DF':
-            convertedList = farmList.map(farm => `${prefix}${farm}${separator}${doorId}${suffix}`).join('\n');
-            break;
-        case 'PLANT':
-            convertedList = farmList.map(farm => `${prefix}${farm}${separator}${doorId}${separator}${itemId}${suffix}`).join('\n');
-            break;
-        default:
-            alert('Pilih format yang valid');
-            return;
-    }
-
-    document.getElementById('convertedResult').value = convertedList;
-}
-
-// Function to copy converted result to clipboard
-function copyResult() {
-    const copyText = document.getElementById('convertedResult');
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); /* For mobile devices */
-    document.execCommand('copy');
-    alert('Hasil berhasil disalin!');
-}
-
-// Function to toggle format options visibility and default behavior
-function toggleFormat() {
-    const format = document.getElementById('formatSelect').value;
-    const directionSelect = document.getElementById('directionSelect');
-    const formatEditor = document.getElementById('formatEditor');
-    const prefixInput = document.getElementById('prefix');
-    const suffixInput = document.getElementById('suffix');
-    const separatorInput = document.getElementById('separator');
-
-    // Reset prefix and suffix input values to default if empty
-    if (format === 'ROTASI' && !prefixInput.value.trim() && !suffixInput.value.trim()) {
-        prefixInput.value = '{"';
-        suffixInput.value = '"},';
-    }
-
-    // Reset separator input value to default if empty
-    if (format !== 'ROTASI' && !separatorInput.value.trim()) {
-        separatorInput.value = '|';
-    }
-
-    if (format === 'ROTASI') {
-        directionSelect.disabled = false;
-        formatEditor.classList.remove('hidden');
-        document.getElementById('formatPattern').placeholder = '{"Nama1","Nama2"}';
-    } else {
-        directionSelect.disabled = true;
-        directionSelect.value = 'horizontal';
-        formatEditor.classList.remove('hidden');
-        if (format === 'DF') {
-            document.getElementById('formatPattern').placeholder = '"Nama|ID"';
-        } else if (format === 'PLANT') {
-            document.getElementById('formatPattern').placeholder = 'Nama|ID|Item';
+    formatSelector.addEventListener('change', () => {
+        const format = formatSelector.value;
+        if (format.startsWith('dirt') || format.startsWith('plant')) {
+            extraInputs.classList.remove('hidden');
+            const showItemId = format === 'plant1' || format === 'plant2';
+            itemIdInput.classList.toggle('hidden', !showItemId);
+            itemIdLabel.classList.toggle('hidden', !showItemId);
+        } else {
+            extraInputs.classList.add('hidden');
         }
+    });
+
+    toggleCustomButton.addEventListener('click', () => {
+        customSettingsRow.classList.toggle('hidden');
+    });
+
+    function updateResult() {
+        const format = formatSelector.value;
+        const farms = farmList.value.trim().split('\n').filter(farm => farm.trim() !== '');
+        let prefix = document.getElementById('prefix-input').value || '';
+        let suffix = document.getElementById('suffix-input').value || '';
+        let separator = document.getElementById('separator-input').value || ', ';
+        
+        if (customSettingsRow.classList.contains('hidden')) {
+            prefix = '';
+            suffix = '';
+            separator = format.startsWith('dirt') || format.startsWith('plant') ? '\n' : ', ';
+        }
+
+        let result = farms.map(farm => {
+            let line = '';
+            switch (format) {
+                case 'horizontal':
+                    line = `"${farm}"`;
+                    break;
+                case 'vertical':
+                    line = `{"${farm}"}`;
+                    break;
+                case 'dirt1':
+                    line = `"${farm}|${idDoorInput.value}"`;
+                    break;
+                case 'dirt2':
+                    line = `${farm}|${idDoorInput.value}`;
+                    break;
+                case 'plant1':
+                    line = `"${farm}|${idDoorInput.value}|${itemIdInput.value}"`;
+                    break;
+                case 'plant2':
+                    line = `${farm}|${idDoorInput.value}|${itemIdInput.value}`;
+                    break;
+            }
+            return prefix + line + suffix;
+        }).join(separator);
+
+        resultArea.value = result;
     }
-}
 
-// Function to toggle settings panel visibility
-function toggleSettings() {
-    const settingsPanel = document.getElementById('settingsPanel');
-    settingsPanel.classList.toggle('hidden');
-}
-
-// Function to save settings (including background image URL)
-function saveSettings() {
-    const ownerName = document.getElementById('ownerName').value;
-    const buttonColor = document.getElementById('buttonColor').value;
-    const textColor = document.getElementById('textColor').value;
-    const bgImageUrl = document.getElementById('bgImageUrl').value.trim();
-
-    document.getElementById('ownerTitle').innerText = ownerName;
-    document.getElementById('convertButton').style.backgroundColor = buttonColor;
-    document.getElementById('copyButton').style.backgroundColor = buttonColor;
-    document.getElementById('convertButton').style.color = textColor;
-    document.getElementById('copyButton').style.color = textColor;
-
-    // Set background image if URL is provided
-    if (bgImageUrl) {
-        document.body.style.backgroundImage = `url('${bgImageUrl}')`;
-    } else {
-        document.body.style.backgroundImage = 'none';
-    }
-}
-
-// Function to apply custom format pattern
-function applyCustomFormat(farmList, formatPattern) {
-    return farmList.map(farm => formatPattern.replace(/Nama/g, farm)).join('\n');
-}
-
-// Function to start RGB animation around the converter
-function startRGBAnimation() {
-    const converter = document.querySelector('.converter');
-    let hue = 0;
-
-    setInterval(() => {
-        hue = (hue + 1) % 360;
-        converter.style.boxShadow = `0 0 10px hsl(${hue}, 70%, 50%)`;
-    }, 50); // Adjust speed here (milliseconds)
-}
-
-// Call the function to start the RGB animation
-startRGBAnimation();
+    convertButton.addEventListener('click', updateResult);
+    copyButton.addEventListener('click', () => {
+        resultArea.select();
+        document.execCommand('copy');
+    });
+});
