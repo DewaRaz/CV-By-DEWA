@@ -28,6 +28,8 @@ header {
     width: 100%;
     padding: 10px;
     background-color: var(--header-background);
+    position: relative;
+    box-shadow: 0 0 10px var(--shadow-color);
 }
 
 #settings-button {
@@ -60,8 +62,7 @@ main {
     flex-direction: column;
     align-items: center;
     width: 90%;
-    max-width: 1200px;
-    margin-top: 20px;
+    max-width: 800px;
 }
 
 .form-section {
@@ -109,4 +110,53 @@ footer {
     width: 100%;
     text-align: center;
     color: var(--text-color);
+}
+
+.table-container {
+    width: 100%;
+    margin: 20px 0;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background-color: var(--table-background);
+    border: 1px solid var(--table-border);
+}
+
+.table-container::before, .table-container::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    background: linear-gradient(45deg, red, yellow, green, cyan, blue, magenta, red);
+    background-size: 400% 400%;
+    animation: rgb-border 10s linear infinite;
+    border-radius: 12px;
+    z-index: -1;
+}
+
+@keyframes rgb-border {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+button, textarea, select, input[type="text"] {
+    border-radius: 5px;
+}
+
+#convert-button:hover, #copy-button:hover, #toggle-custom:hover, #save-settings:hover {
+    background-color: #cc0000;
+}
+
+#settings-panel input[type="color"] {
+    margin-bottom: 10px;
+    padding: 0;
+    height: 40px;
+}
+
+#extra-inputs label, #extra-inputs input {
+    display: block;
+    margin-bottom: 5px;
 }
