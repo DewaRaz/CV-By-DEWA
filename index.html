@@ -8,58 +8,60 @@
 </head>
 <body>
     <header>
-        <h1 id="table-title">Nama Pemilik Web</h1>
+        <div>Nama Pemilik Web</div>
         <button id="settings-button">⚙️</button>
-    </header>
-    <main>
         <div id="settings-panel" class="hidden">
-            <label for="title-input">Nama Table:</label>
-            <input type="text" id="title-input" placeholder="Nama Pemilik Web">
-            <label for="button-color">Warna Tombol:</label>
+            <label for="table-name">Table Name:</label>
+            <input type="text" id="table-name" value="Nama Pemilik Web">
+            <label for="button-color">Button Color:</label>
             <input type="color" id="button-color" value="#ff0000">
-            <label for="text-color">Warna Tulisan:</label>
+            <label for="text-color">Text Color:</label>
             <input type="color" id="text-color" value="#ffffff">
             <button id="save-settings">Save</button>
         </div>
-        <button id="toggle-custom">Aktifkan/Off Custom</button>
-        <div id="custom-settings-row" class="hidden">
-            <label for="prefix-input">Prefix:</label>
-            <input type="text" id="prefix-input">
-            <label for="suffix-input">Suffix:</label>
-            <input type="text" id="suffix-input">
-            <label for="separator-input">Separator:</label>
-            <input type="text" id="separator-input">
+    </header>
+    <main>
+        <div class="form-section">
+            <button id="toggle-custom">Aktifkan/Matikan Custom</button>
+            <div id="extra-inputs" class="hidden">
+                <label for="prefix">Custom Prefix:</label>
+                <input type="text" id="prefix" placeholder="Masukkan custom prefix">
+                <label for="suffix">Custom Suffix:</label>
+                <input type="text" id="suffix" placeholder="Masukkan custom suffix">
+                <label for="separator">Custom Separator:</label>
+                <input type="text" id="separator" placeholder="Masukkan custom separator">
+            </div>
         </div>
         <div class="form-section">
-            <label for="format-selector">Pilih Format:</label>
-            <select id="format-selector">
-                <option value="horizontal">ROTASI HORIZONTAL</option>
-                <option value="vertical">ROTASI VERTIKAL</option>
-                <option value="dirt1">Dirt Farm mode 1</option>
-                <option value="dirt2">Dirt Farm mode 2</option>
-                <option value="plant1">Plant mode 1</option>
-                <option value="plant2">Plant mode 2</option>
+            <label for="format">Pilih Format:</label>
+            <select id="format">
+                <option value="horizontal">Rotasi Horizontal</option>
+                <option value="vertical">Rotasi Vertikal</option>
+                <option value="dirt1">Dirt Farm Mode 1</option>
+                <option value="dirt2">Dirt Farm Mode 2</option>
+                <option value="plant1">Plant Mode 1</option>
+                <option value="plant2">Plant Mode 2</option>
             </select>
         </div>
         <div class="form-section">
             <label for="farm-list">Masukkan List Farm:</label>
-            <textarea id="farm-list" rows="10" cols="30"></textarea>
+            <textarea id="farm-list" rows="10" placeholder="Masukkan list farm di sini"></textarea>
+            <div id="extra-inputs-dirt-plant" class="hidden">
+                <label for="id-door">ID Door:</label>
+                <input type="text" id="id-door" placeholder="Masukkan ID Door">
+                <label for="item-id" class="hidden">Item ID:</label>
+                <input type="text" id="item-id" class="hidden" placeholder="Masukkan Item ID">
+            </div>
         </div>
         <button id="convert-button">Convert</button>
-        <div id="extra-inputs" class="hidden">
-            <label for="id-door">ID Door:</label>
-            <input type="text" id="id-door">
-            <label for="item-id" id="item-id-label" class="hidden">Item ID:</label>
-            <input type="text" id="item-id" class="hidden">
-        </div>
         <div class="form-section">
             <label for="result">Hasil:</label>
-            <textarea id="result" rows="10" cols="30" readonly></textarea>
+            <textarea id="result" rows="10" readonly></textarea>
+            <button id="copy-button">Salin</button>
         </div>
-        <button id="copy-button">Salin</button>
     </main>
     <footer>
-        <p>DEWA VPS DEVELOPER</p>
+        DEWA VPS DEVELOPER
     </footer>
     <script src="main.js"></script>
 </body>
