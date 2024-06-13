@@ -71,12 +71,16 @@ function saveSettings() {
     const ownerName = document.getElementById('ownerName').value;
     const buttonColor = document.getElementById('buttonColor').value;
     const textColor = document.getElementById('textColor').value;
+    const bgImageUrl = document.getElementById('bgImageUrl').value;
 
     document.getElementById('ownerTitle').innerText = ownerName;
     document.getElementById('convertButton').style.backgroundColor = buttonColor;
     document.getElementById('copyButton').style.backgroundColor = buttonColor;
     document.getElementById('convertButton').style.color = textColor;
     document.getElementById('copyButton').style.color = textColor;
+
+    // Set background image
+    document.body.style.backgroundImage = bgImageUrl ? `url(${bgImageUrl})` : 'none';
 }
 
 function applyCustomFormat(farmList, formatPattern) {
